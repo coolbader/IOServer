@@ -16,16 +16,16 @@ where TData : class, new()
 public class FSMGrain<TState, TData> : Orleans.Grain, IFSMGrain<TState, TData> where TState : Enum
 where TData : class,new()
 {
-    private IFSMStreamPubGrain<TData> PubGrain;
-    private IFSMStreamSubGrain<TData> SubGrain;
     private ILogger<FSMGrain<TState, TData>> _logger;
     private IPersistentState<FSMModel<TState, TData>> _state;
-
+    IPubSubGrain<TData> _pubSub;
+    ISubscriberGrain<TData> _sub;
     public FSMGrain([PersistentState(
             stateName: Const.FSMStateName,
             storageName: Const.FSMMemoryStorage)]
         IPersistentState<FSMModel<TState, TData>> state, ILogger<FSMGrain<TState, TData>> logger)
     {
+
         _state = state;
         _logger = logger;
     }
@@ -37,18 +37,25 @@ where TData : class,new()
         _state.State.state = default(TState); // 默认状态为枚举的第一个值
         return base.OnActivateAsync(cancellationToken);
     }
-
-    public Task Register()
+    public async Task Register()
     {
-        Guid guid = Guid.NewGuid();
-        PubGrain = GrainFactory.GetGrain<IFSMStreamPubGrain<TData>>(guid);
-        SubGrain = GrainFactory.GetGrain<IFSMStreamSubGrain<TData>>(guid);
-        return Task.CompletedTask;
+        _pubSub = GrainFactory.GetGrain<IPubSubGrain<TData>>(Guid.NewGuid());
+         _sub= GrainFactory.GetGrain<ISubscriberGrain<TData>>(Guid.NewGuid());
+        await _pubSub.Subscribe(Const.Topic, _sub);
+        
     }
+
+    //public Task Register()
+    //{
+    //    Guid guid = Guid.NewGuid();
+    //    PubGrain = GrainFactory.GetGrain<IFSMStreamPubGrain<TData>>(guid);
+    //    SubGrain = GrainFactory.GetGrain<IFSMStreamSubGrain<TData>>(guid);
+    //    return Task.CompletedTask;
+    //}
 
     public async Task Publish(TData data)
     {
-        await PubGrain.Pubish(data);
+        await _pubSub.Publish(Const.Topic,data);
     }
 
     public override Task OnDeactivateAsync(DeactivationReason reason, CancellationToken cancellationToken)
@@ -59,11 +66,9 @@ where TData : class,new()
 
     public async Task SetData(TData data)
     {
-        await Register();
         _state.State.data = null;
         _state.State.data = data;
-        await PubGrain.Pubish(data);
-        // Task.CompletedTask;
+        await _pubSub.Publish(Const.Topic,data);
     }
 
     public Task TransitionTo(TState newState)

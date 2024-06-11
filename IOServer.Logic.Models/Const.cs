@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IOServer.Logic.Models
+namespace IOServer.Logic.Models;
+
+public static class Const
 {
-    public static class Const
-    {
-        public const string FSMStreamProvider = "FSMStreamProvider";
+    public const string FSMStreamProvider = "FSMStreamProvider";
 
-        public const string FSMStreamId = "FSMStreamId";
+    public const string FSMStreamId = "FSMStreamId";
 
-        public const string FSMMemoryStorage = "FSMMemoryStorage";
-        public const string FSMStateName = "FSMStateName";
-        public const string BusinessLogicStateName = "BusinessLogicStateName";
-    }
+    public const string FSMMemoryStorage = "FSMMemoryStorage";
+    public const string FSMStateName = "FSMStateName";
+    public const string BusinessLogicStateName = "BusinessLogicStateName";
+
+    public const string Topic = "FSMTopic";
 }

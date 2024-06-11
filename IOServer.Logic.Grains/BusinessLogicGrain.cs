@@ -1,11 +1,10 @@
 ﻿namespace IOServer.Logic.Grains;
-using IOServer.Logic.Models;
-using IOServer.Logic.IGrains;
-using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
-using Orleans;
+using global::IOServer.Logic.IGrains;
+using global::IOServer.Logic.Models;
+using Microsoft.Extensions.Logging;
 using Orleans.Runtime;
+using System.Threading.Tasks;
 
 public class BusinessLogicGrain : FSMGrain<BusinessState, DataPoint>, IBusinessLogicGrain
 {
