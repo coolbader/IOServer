@@ -1,0 +1,44 @@
+# 忽略 Visual Studio 临时文件、构建结果等
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]nyCPU/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# 忽略 NuGet 包文件
+packages/
+
+# 忽略 VS Code 设置文件
+.vscode/
+
+# 忽略用户特定的 VS 设置
+*.user
+*.suo
+*.userosscache
+
+# 忽略 ReSharper / Rider 的缓存和设置文件
+_ReSharper*/
+*.sln.dotsettings
+
+# 忽略所有的项目文件锁定文件
+project.lock.json
+project.fragment.lock.json
+
+# 忽略 Build 结果
+[Dd]ebugPS/
+[Rr]eleasePS/
+x64PS/
+x86PS/
+[Aa]nyCPUPS/
+[Bb]inPS/
+[Oo]bjPS/
+
+# 忽略存储在 .vs 文件夹中的 Visual Studio 缓存文件
+.vs/
+
+# 忽略 ASP.NET Scaffolding 生成的文件
+ScaffoldingReadMe.txt
+

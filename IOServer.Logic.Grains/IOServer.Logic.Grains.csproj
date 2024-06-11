@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ServiceRunnerGrain.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ServiceRunnerGrain.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Orleans.Sdk" Version="8.1.0" />
+	  <PackageReference Include="Microsoft.Orleans.Streaming" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IOServer.Logic.IGrains\IOServer.Logic.IGrains.csproj" />
+    <ProjectReference Include="..\IOServer.Logic.Models\IOServer.Logic.Models.csproj" />
+  </ItemGroup>
+
+</Project>

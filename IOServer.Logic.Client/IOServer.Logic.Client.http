@@ -1,0 +1,6 @@
+@IOServer.Logic.Client_HostAddress = http://localhost:5218
+
+GET {{IOServer.Logic.Client_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
